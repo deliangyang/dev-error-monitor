@@ -1,5 +1,7 @@
 
-### the monitor collect exception and consumer's log, and then send email to developer
+### Introduction
+
+The monitor collect exception and consumer's log, and then send email to developer.
 
 
 ### How to use it?
