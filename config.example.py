@@ -1,10 +1,10 @@
 # -*-- coding:utf-8 -*--
 
-user_name = 'xxx@juwang.cn'
+user_name = 'xxx@qq.cn'
 password = 'xxxxxxxxx'
 
 
 mail_host = 'smtp.exmail.qq.com'
-send_from = 'xxxxx@juwang.cn'
+send_from = 'xxxxx@qq.cn'
 
-to_backend = 'xxxxx@juwang.cn'
+to_backend = 'xxxxx@qq.cn'
