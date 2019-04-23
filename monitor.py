@@ -33,7 +33,6 @@ class LogCollection:
         for _item in _filter_re:
             self.filter_re.append(re.compile(_item))
         self.date = datetime.datetime.now().strftime('%Y%m%d')
-        self.date = datetime.datetime.now().strftime('%Y%m%d')
 
     def collect(self, _path):
         self.data = []
