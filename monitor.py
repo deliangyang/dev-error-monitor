@@ -12,7 +12,7 @@ from pony.orm import *
 
 class LogCollection:
 
-    __slots__ = ('exception_command', 'consume_command', 'data', 'date', 'filter_re', 'error_map', 'line_re')
+    __slots__ = ('exception_command', 'consume_command', 'data', 'date', 'filter_re', 'error_map', 'line_re', 'env')
 
     def __init__(self):
         self.error_map = {
@@ -34,7 +34,7 @@ class LogCollection:
             self.filter_re.append(re.compile(_item))
         self.date = datetime.datetime.now().strftime('%Y%m%d')
 
-    def collect(self, _path):
+    def collect(self, environment, _path):
         self.data = []
 
         def error_md5(err):
@@ -49,18 +49,19 @@ class LogCollection:
                 self.error_map[_key], _path, _key, self.date)
             print(command)
             lines = os.popen(command).readlines()
-            self.parse(error_md5, lines)
+            self.parse(error_md5, environment, lines)
 
     def get_data(self):
         return self.data
 
     @db_session
-    def parse(self, error_md5, lines):
+    def parse(self, error_md5, _env, lines):
         for line in lines:
             datum = line.strip()
             items = self.line_re.findall(datum)
             if len(items):
                 times, error = items[0]
+                times = int(times)
                 has_been_filter = False
                 for _re in self.filter_re:
                     if len(_re.findall(line)):
@@ -68,11 +69,17 @@ class LogCollection:
                         break
                 if has_been_filter:
                     continue
+                _md5 = error_md5(error)
                 try:
-                    ErrorLog(md5=error_md5(error), times=times, error=error, create_time=int(time.time()))
+                    ErrorLog(md5=_md5, times=times, error=error, create_time=int(time.time()), env=_env)
                     commit()
                     self.data.append(line)
                 except Exception as e:
+                    error_log = ErrorLog.get(md5=_md5, env=_env)
+                    if error_log and times > error_log.times:
+                        error_log.times = times
+                        commit()
+                        self.data.append(line)
                     print(e)
 
 
@@ -83,11 +90,11 @@ if __name__ == '__main__':
     }
     error_info = ''
     monitor = LogCollection()
-    for key in paths:
-        monitor.collect(paths[key])
+    for env in paths:
+        monitor.collect(env, paths[env])
         error_data = monitor.get_data()
         if len(error_data):
-            error_info += "环境:%s\n%s\n\n" % (key, ''.join(error_data))
+            error_info += "环境:%s\n%s\n\n" % (env, ''.join(error_data))
 
     if len(error_info):
         mail_sender = MailSender('测试环境错误信息收集', "\n" + error_info, send_from, to_backend)
