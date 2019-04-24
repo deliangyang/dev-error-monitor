@@ -9,3 +9,4 @@ test "${LEN}" = "$(cat $1 | sed 's/[\r\n]/#/g' | tr '\n' '#' |
     echo >&2 bad commit style "(feat|fix|docs|style|refactor|perf|test|chore|revert)(scope):..."
     exit 1
 }
+
