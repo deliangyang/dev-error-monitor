@@ -26,7 +26,10 @@ class LogCollection:
             r'model_exception_',
             r'[\u4e00-\u9fa5]{2,}',
             r'exception_incorrect_telphone_password',
-            r' Not Found '
+            r' Not Found ',
+            r'Database connect failed',
+            r'"code":\d{6}',
+            r'"code":40\d',
         ]
         self.data = []
         self.filter_re = []

@@ -19,7 +19,8 @@ class MailSender:
         message = MIMEText(self.content, 'plain', 'utf-8')
         message['Subject'] = self.subject
         message['From'] = formataddr([self.mail_from, self.mail_from])
-        message['To'] = formataddr([self.mail_to, self.mail_to])
+        message['To'] = duanhaisheng_cc
+        message['Cc'] = ','.join([longhaibin_cc, chenqiang_cc, mujianhong_cc, ydl_cc])
         return message
 
     def send(self):
