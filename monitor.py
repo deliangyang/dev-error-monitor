@@ -90,6 +90,7 @@ if __name__ == '__main__':
     paths = {
         'test': '/data/logs/yuechang/test',
         'newtest': '/data/logs/yuechang/newtest',
+        'testdress': '/data/logs/yuechang/testdress',
     }
     error_info = ''
     monitor = LogCollection()
