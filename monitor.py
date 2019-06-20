@@ -30,6 +30,7 @@ class LogCollection:
             r'Database connect failed',
             r'"code":\d{6}',
             r'"code":40\d',
+            r'Recommend GetUserReason error'
         ]
         self.data = []
         self.filter_re = []
