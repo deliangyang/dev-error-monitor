@@ -33,6 +33,8 @@ class LogCollection:
             r'Recommend GetUserReason error',
             r'average_response_time',
             r'Recommend GetUserMeet',
+            r'Play Has Already Begun',
+            r'Recommend',
         ]
         self.data = []
         self.filter_re = []
