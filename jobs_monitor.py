@@ -18,13 +18,11 @@ class JobMonitor(object):
         self.datetime = datetime.datetime.now() + datetime.timedelta(hours=-2)
 
     def filename(self):
-        _datetime = self.datetime.strftime('%Y-%m-%d-%H')
-        date = datetime.split('-')
         return '/yuechang_log/%s/%s/%s/job-%s.gz' % (
-            _datetime[0],
-            _datetime[1],
-            _datetime[2],
-            ''.join(date)
+            self.datetime.strftime('%Y'),
+            self.datetime.strftime('%m'),
+            self.datetime.strftime('%d'),
+            self.datetime.strftime('%Y%m%d%H')
         )
 
     def parse_ftp_download_url(self):
