@@ -61,6 +61,7 @@ class JobMonitor(object):
                     "\n" + '\n'.join(res),
                     send_from, to_backend)
                 mail_sender.new_send()
+        os.unlink(local_file)               # delete file
 
     @staticmethod
     def download(url, dist):
