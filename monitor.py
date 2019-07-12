@@ -35,6 +35,7 @@ class LogCollection:
             r'Recommend GetUserMeet',
             r'Play Has Already Begun',
             r'Recommend',
+            r'Duplicate entry',
         ]
         self.data = []
         self.filter_re = []

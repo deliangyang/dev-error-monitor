@@ -8,14 +8,14 @@ from send_mail import MailSender
 
 class JobMonitor(object):
 
-    def __init__(self):
+    def __init__(self, dt):
         self.intervals = [
             {
                 'name': 'StatHourlyUserSendGift',
                 'rate': 1,
             }
         ]
-        self.datetime = datetime.datetime.now() + datetime.timedelta(hours=-2)
+        self.datetime = dt
 
     def filename(self):
         return '/yuechang_log/%s/%s/%s/job-%s.gz' % (
@@ -75,5 +75,5 @@ class JobMonitor(object):
 
 
 if __name__ == '__main__':
-    monitor = JobMonitor()
+    monitor = JobMonitor(dt=datetime.datetime.now() + datetime.timedelta(hours=-2))
     monitor.collect()
